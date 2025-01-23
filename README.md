@@ -47,6 +47,4 @@ A web-based application designed to streamline the resume screening process for 
 - Provides ranked results, making it easier to identify top candidates.  
 - Saves time and effort by streamlining the shortlisting process.  
 
----
 
-Save this as `README.md`, and upload it to your GitHub repository. The formatting will display perfectly! 😎 Let me know if you need more help.
