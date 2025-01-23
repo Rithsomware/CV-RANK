@@ -229,10 +229,9 @@
             <div class="card-body">
                 <form method="POST" action="/matcher" enctype="multipart/form-data">
                     <div class="form-row">
- 
                         <div class="form-column">
-                            <label for="job_description">Job Description:</label>
-                            <textarea class="form-control" id="job_description" name="job_description" rows="5" required></textarea>
+                            <label for="job_descriptions">Upload Job Descriptions:</label>
+                            <input type="file" class="form-control" id="job_descriptions" name="job_descriptions" multiple required accept=".pdf, .docx, .txt">
                         </div>
 
                         <div class="form-column">
@@ -244,14 +243,16 @@
                 </form>
 
                 <!-- Resume Ranking Section -->
-                {% if message %}
+                {% if results %}
                     <div class="alert">
-                        <p>{{ message }}</p>
-                        <ul>
-                            {% for index in range(top_resumes|length) %}
-                                <li>{{ top_resumes[index] }} (Similarity Score: {{ similarity_scores[index] }})</li>
-                            {% endfor %}
-                        </ul>
+                        {% for result in results %}
+                            <h4>Job Description: {{ result.job_description }}</h4>
+                            <ul>
+                                {% for resume in result.ranked_resumes %}
+                                    <li>{{ resume[0] }} (Similarity Score: {{ resume[1] | round(2) }}%)</li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
                     </div>
                 {% endif %}
             </div>
@@ -261,11 +262,10 @@
     <!-- GSAP -->
     <script>
         window.onload = () => {
-
             gsap.to('#loading-screen', {
                 opacity: 0,
                 y: '-100%',
-                duration: 1,
+                duration: 4,
                 ease: 'power3.out',
                 onComplete: () => {
                     document.getElementById('loading-screen').style.display = 'none';
