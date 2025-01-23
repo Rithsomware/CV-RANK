@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <style>
-        /* General body styling */
         body {
             font-family: 'Work Sans', sans-serif;
             background: linear-gradient(135deg, #1b1b1b, #222);
@@ -21,7 +20,6 @@
             height: 100vh;
         }
 
-        /* Full-screen loading screen */
         #loading-screen {
             position: fixed;
             top: 0;
@@ -45,7 +43,6 @@
             text-shadow: 2px 2px 8px rgba(0, 242, 255, 0.7);
         }
 
-        /* Container styling */
         .container {
             display: flex;
             justify-content: center;
@@ -81,7 +78,6 @@
             text-transform: uppercase;
         }
 
-        /* Flex layout for form */
         .form-row {
             display: flex;
             justify-content: space-between;
@@ -159,17 +155,16 @@
             font-weight: 500;
         }
 
-        /* Two-column layout for form */
         .form-column {
             flex: 1;
             padding: 10px;
         }
 
         .form-column:first-child {
-            margin-right: 20px; /* Add some spacing between columns */
+            margin-right: 20px;
         }
 
-        /* Responsive Design */
+        /* Mobile */
         @media (max-width: 768px) {
             #loading-message {
                 font-size: 3rem;
@@ -221,12 +216,11 @@
 </head>
 <body>
 
-    <!-- Full-Screen Loading Screen -->
+    <!-- Loading Screen -->
     <div id="loading-screen">
         <div id="loading-message">Resume Matcher</div>
     </div>
 
-    <!-- Main Content -->
     <div class="container">
         <div class="card">
             <div class="card-header">
@@ -235,13 +229,12 @@
             <div class="card-body">
                 <form method="POST" action="/matcher" enctype="multipart/form-data">
                     <div class="form-row">
-                        <!-- Left Column: Job Description -->
+ 
                         <div class="form-column">
                             <label for="job_description">Job Description:</label>
                             <textarea class="form-control" id="job_description" name="job_description" rows="5" required></textarea>
                         </div>
 
-                        <!-- Right Column: Resume Upload and Button -->
                         <div class="form-column">
                             <label for="resumes">Upload Resumes:</label>
                             <input type="file" class="form-control" id="resumes" name="resumes" multiple required accept=".pdf, .docx, .txt">
@@ -265,23 +258,19 @@
         </div>
     </div>
 
-    <!-- GSAP Animations -->
+    <!-- GSAP -->
     <script>
-        // GSAP animation on page load
         window.onload = () => {
-            // Slide up and fade-out the loading screen in 1 second
+
             gsap.to('#loading-screen', {
                 opacity: 0,
                 y: '-100%',
                 duration: 1,
                 ease: 'power3.out',
                 onComplete: () => {
-                    // After animation, remove the loading screen
                     document.getElementById('loading-screen').style.display = 'none';
                 }
             });
-
-            // Fade-in the card with slide-up animation
             gsap.to('.card', {
                 opacity: 1,
                 y: 0,
