@@ -1,0 +1,20 @@
+﻿# REQUIREMENTS.TXT
+# Installation Steps:
+# 1. Create virtual environment (one-time setup):
+#    python -m venv venv
+#
+# 2. Activate virtual environment:
+#    Windows: .\venv\Scripts\activate
+#    Mac/Linux: source venv/bin/activate
+#
+# 3. Install packages from this file:
+#    pip install -r requirements.txt
+#
+# 4. Download spaCy language models after installation:
+#    python -m spacy download en_core_web_md
+#    python -m spacy download en_core_web_lg  # Optional for better accuracy
+
+Flask==2.0.1
+docx2txt==0.8
+PyPDF2==2.0.0
+spacy==3.2.1
