@@ -8,7 +8,7 @@ A web-based application designed to streamline the resume screening process for 
 ## Features
 
 - **Multi-Format Input**:
-  Employers can upload resumes in **PDF**, **DOCX**, or **TXT** formats.
+  Employers can upload resumes in **DOCX**, or **TXT** formats.
 
 - **Job Description Input**:
   Employers can upload or input the job description directly for seamless integration.
@@ -85,8 +85,8 @@ A web-based application designed to streamline the resume screening process for 
 5. **Run the Application**
    ```bash
    # Set environment variables
-   export FLASK_APP=app.py  # Linux/macOS
-   set FLASK_APP=app.py  # Windows
+   export FLASK_APP=main.py  # Linux/macOS
+   set FLASK_APP=main.py  # Windows
    export FLASK_ENV=development  # For development mode
 
    # Start the server
@@ -102,15 +102,12 @@ A web-based application designed to streamline the resume screening process for 
 
 ```
 CV-RANK/
-├── app.py                # Main application entry point
+├── main.py                # Main application entry point
 ├── requirements.txt      # Dependency specifications
 ├── templates/            # HTML templates
-│   ├── match/            # Matching results templates
-│   │   └── resume.html   # Resume display template
-│   └── ...               # Other template files
+│   ├── matchresume.html  # Matching results templates # Resume display template
 ├── uploads/              # Temporary storage for uploaded files
 ├── job_desc/             # Sample job descriptions
-├── static/               # Static assets (CSS/JS/images)
 ├── venv/                 # Virtual environment directory (auto-generated)
 └── README.md             # Project documentation
 ```
