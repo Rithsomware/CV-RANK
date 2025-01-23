@@ -4,54 +4,255 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume Matcher</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Work+Sans:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <style>
+        /* General body styling */
         body {
-            background-color: #f8f9fa;
+            font-family: 'Work Sans', sans-serif;
+            background: linear-gradient(135deg, #1b1b1b, #222);
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
+
+        /* Full-screen loading screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #loading-message {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #00f2ff;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 8px rgba(0, 242, 255, 0.7);
+        }
+
+        /* Container styling */
         .container {
-            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            flex-grow: 1;
         }
+
         .card {
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #2b2b2b;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(50px);
         }
+
         .card-header {
-            background-color: #007bff;
-            color: white;
-            border-radius: 10px 10px 0 0;
-            padding: 10px 20px;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
         }
-        .card-body {
+
+        .card-header h2 {
+            font-size: 2.5rem;
+            color: #00f2ff;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Flex layout for form */
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .form-row label {
+            font-size: 1.2rem;
+            color: #bbb;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .form-control {
+            background-color: #333;
+            border: none;
+            color: #f5f5f5;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            width: 100%;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus {
+            background-color: #444;
+            border: 2px solid #00f2ff;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+        }
+
+        .btn-primary {
+            background-color: #00f2ff;
+            border: none;
+            color: #1b1b1b;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 20px;
+            align-self: flex-end; /* Align button to the right */
+        }
+
+        .btn-primary:hover {
+            background-color: #00d1e7;
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 242, 255, 0.3);
+        }
+
+        .btn-primary:active {
+            background-color: #00a8b3;
+            transform: scale(1);
+        }
+
+        .alert {
+            background-color: #323232;
+            color: #00f2ff;
+            border-radius: 10px;
             padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+            margin-top: 30px;
         }
-        .form-group {
-            margin-bottom: 1.5rem;
+
+        .alert ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
         }
+
+        .alert li {
+            margin: 5px 0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Two-column layout for form */
+        .form-column {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .form-column:first-child {
+            margin-right: 20px; /* Add some spacing between columns */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #loading-message {
+                font-size: 3rem;
+                letter-spacing: 3px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .card-header h2 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-row label, .form-control {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .btn-primary {
+                width: 100%;
+                font-size: 1.1rem;
+                padding: 12px;
+                align-self: center; /* Center button on smaller screens */
+            }
+
+            .form-column {
+                margin-right: 0; /* Remove spacing between columns on smaller screens */
+            }
+        }
+
+        @media (max-width: 576px) {
+            #loading-message {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+
+            .card-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- Full-Screen Loading Screen -->
+    <div id="loading-screen">
+        <div id="loading-message">Resume Matcher</div>
+    </div>
+
+    <!-- Main Content -->
     <div class="container">
         <div class="card">
-            <div class="card-header text-center">
+            <div class="card-header">
                 <h2>Job Description and Resume Matcher</h2>
             </div>
             <div class="card-body">
                 <form method="POST" action="/matcher" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="job_description">Job Description:</label>
-                        <textarea class="form-control" id="job_description" name="job_description" rows="5" required></textarea>
+                    <div class="form-row">
+                        <!-- Left Column: Job Description -->
+                        <div class="form-column">
+                            <label for="job_description">Job Description:</label>
+                            <textarea class="form-control" id="job_description" name="job_description" rows="5" required></textarea>
+                        </div>
+
+                        <!-- Right Column: Resume Upload and Button -->
+                        <div class="form-column">
+                            <label for="resumes">Upload Resumes:</label>
+                            <input type="file" class="form-control" id="resumes" name="resumes" multiple required accept=".pdf, .docx, .txt">
+                            <button type="submit" class="btn-primary">Match Resumes</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="resumes">Upload Resumes:</label>
-                        <p>Please Upload Resumes More than 5...........</p>
-                        <input type="file" class="form-control" id="resumes" name="resumes" multiple required accept=".pdf, .docx, .txt">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Match Resumes</button>
                 </form>
+
+                <!-- Resume Ranking Section -->
                 {% if message %}
-                    <div class="alert alert-info mt-4">
+                    <div class="alert">
                         <p>{{ message }}</p>
                         <ul>
                             {% for index in range(top_resumes|length) %}
@@ -63,8 +264,32 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- GSAP Animations -->
+    <script>
+        // GSAP animation on page load
+        window.onload = () => {
+            // Slide up and fade-out the loading screen in 1 second
+            gsap.to('#loading-screen', {
+                opacity: 0,
+                y: '-100%',
+                duration: 1,
+                ease: 'power3.out',
+                onComplete: () => {
+                    // After animation, remove the loading screen
+                    document.getElementById('loading-screen').style.display = 'none';
+                }
+            });
+
+            // Fade-in the card with slide-up animation
+            gsap.to('.card', {
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+                ease: 'power3.out'
+            });
+        }
+    </script>
+
 </body>
 </html>
